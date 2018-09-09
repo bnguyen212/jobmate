@@ -33,8 +33,7 @@ A Chrome extension to parse job details on common job boards and store the infor
    - Obtain Table Name
 
 5. Install JobMate chrome extension [here](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle)
-6. Copy and paste ***chrome://extensions*** into your address bar to see all your chrome extensions
-   - Look for JobMate, click on **Details**, scroll down and click on **Extension options**
+6. Right click on the newly added JobMate icon on chrome toolbar and select **Options**
    - You should see a popup window to fill out your Airtable API Key, Base ID, and Table Name
    - **JobMate chrome extension will not work if these 3 parameters are missing**
    - Click save when you are done, this will allow JobMate to store information on Airtable that you can refer to later.
