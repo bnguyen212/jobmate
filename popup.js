@@ -61,7 +61,7 @@ saveBtn.onclick = function(e) {
     "Location": jobLocation.value
   }
   base(airtableTableName).create(obj, function(err, record) {
-    if (err) return console.error(err)
+    if (err) return alert(err)
     alert('Saved on Airtable!')
   })
 }
