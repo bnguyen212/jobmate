@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link rel="stylesheet" href="popup.css">
+    </head>
+    <body>
+      <div class="header">
+        <h1>JobMate</h1>
+        <button type="button" id="parseInfo" class="btn btn-success btn-lg">Parse Info</button>
+      </div>
+      <form>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Job Title</span>
+          </div>
+          <input type="text" class="form-control" id="jobTitle" placeholder="Full Stack Developer (required)">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Company</span>
+          </div>
+          <input type="text" class="form-control" id="company" placeholder="LinkedIn (required)">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Location</span>
+          </div>
+          <input type="text" class="form-control" id="jobLocation" placeholder="San Francisco, CA (required)">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">URL</span>
+          </div>
+          <input type="text" class="form-control" id="url" placeholder="linkedin.com (required)">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Date</span>
+            </div>
+          <input type="date" class="form-control" id="saveDate">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Status</span>
+          </div>
+          <select class="custom-select" id="status">
+            <option selected></option>
+            <option>Submitted</option>
+            <option>Working</option>
+            <option>Pending</option>
+            <option>Rejected</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Notes</span>
+          </div>
+          <textarea class="form-control" id="notes" rows="3"></textarea>
+        </div>
+        <div class="buttons">
+          <button type="button" id="saveBtn" class="btn btn-primary">Save</button>
+          <button type="button" id="clearBtn" class="btn btn-danger">Clear</button>
+        </div>
+      </form>
+      <script src="assets/moment.js"></script>
+      <script src="assets/airtable.browser.js"></script>
+      <script src="popup.js"></script>
+    </body>
+  </html>

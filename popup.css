@@ -1,0 +1,30 @@
+body {
+  width: 400px;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: solid 1px rgba(128,128,128, 0.3);
+}
+
+form {
+  padding: 20px 0 0 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly
+}
+
+.input-group-text {
+  font-weight: bold;
+}
+
+.custom-select {
+  height: inherit;
+  line-height: 1em;
+}
