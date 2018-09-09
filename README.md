@@ -1,6 +1,8 @@
 # JobMate (version 1.0)
 A Chrome extension to parse job details on common job boards and store the information on Airtable
 
+![JobMate extension](assets/JobMatePopup.png)
+
 ## Currently supported job boards:
 - linkedin.com
 - glassdoor.com
