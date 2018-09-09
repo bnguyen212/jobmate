@@ -2,7 +2,6 @@ let apiKey = document.getElementById('api-key');
 let baseId = document.getElementById('base-id');
 let tableName = document.getElementById('table-name');
 let saveBtn = document.getElementById('save');
-let closeBtn = document.getElementById('close');
 
 chrome.storage.sync.get(["airtableApiKey", "airtableBaseId", "airtableTableName"], function(data) {
   apiKey.value = data.airtableApiKey ? data.airtableApiKey : '';
@@ -17,10 +16,9 @@ saveBtn.onclick = function(element) {
     airtableTableName: tableName.value
   }
   chrome.storage.sync.set(obj, function() {
-    window.alert('Successfully saved!')
+    $('h4').after('<div id="message">Successfully saved!</div>')
+    setTimeout(function() {
+      $('#message').fadeOut(500);
+    }, 2000)
   })
-}
-
-closeBtn.onclick = function(element) {
-  window.close();
 }
