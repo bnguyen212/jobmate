@@ -1,4 +1,4 @@
-# JobMate (version 1.1)
+# JobMate (version 1.3)
 A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle) to parse job details on common job boards and store the information on Airtable
 
 <img src="assets/JobMateExample.png">
