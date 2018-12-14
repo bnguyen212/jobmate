@@ -38,13 +38,11 @@ A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpb
    - Obtain the Base ID from the address bar (ht<span>tps://</span>airtable.com/**__BASEID__**/api/docs)
    - Obtain Table Name
 
-5. Go back to
-
 6. Install JobMate chrome extension [here](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle)
 7. Right click on the newly added JobMate icon on chrome toolbar and select **Options**
    - You should see a popup window to fill out your Airtable API Key, Base ID, and Table Name, and Base URL
-   - **JobMate chrome extension will not work properly if the first 3 parameters are missing**. The 4th parameter (Base URL) is for your easy access, the green SPREADSHEET button located in extension popup will not work if this parameter is missing)
-   - Click SAVE when you are done, this will allow JobMate to store information on Airtable that you can refer to later.
+   - **JobMate chrome extension will not work properly if the first 3 parameters are missing**. The 4th parameter (Base URL) is for your easy access, the green SPREADSHEET button located in extension popup will not work if this parameter is missing
+   - Click SAVE when you are done, this will allow JobMate to store information on Airtable that you can refer to later
 
    ![JobMate settings](assets/JobMateSettings.png)
 
