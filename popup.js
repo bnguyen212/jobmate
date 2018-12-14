@@ -1,16 +1,17 @@
-var Airtable = require('airtable');
+const Airtable = require('airtable');
 
-let parseInfo = document.getElementById('parseInfo');
-let saveBtn = document.getElementById('saveBtn');
-let clearBtn = document.getElementById('clearBtn');
+const parseInfo = document.getElementById('parseInfo');
+const saveBtn = document.getElementById('saveBtn');
+const clearBtn = document.getElementById('clearBtn');
+const openBtn = document.getElementById('openBtn');
 
-let jobTitle = document.getElementById('jobTitle');
-let company = document.getElementById('company');
-let jobLocation = document.getElementById('jobLocation');
-let url = document.getElementById('url');
-let saveDate = document.getElementById('saveDate');
-let status = document.getElementById('status');
-let notes = document.getElementById('notes');
+const jobTitle = document.getElementById('jobTitle');
+const company = document.getElementById('company');
+const jobLocation = document.getElementById('jobLocation');
+const url = document.getElementById('url');
+const saveDate = document.getElementById('saveDate');
+const status = document.getElementById('status');
+const notes = document.getElementById('notes');
 
 parseInfo.onclick = function(e) {
   e.preventDefault();
@@ -25,6 +26,17 @@ parseInfo.onclick = function(e) {
         status.value = 'Submitted';
       }
     })
+  })
+}
+
+openBtn.onclick = function(e) {
+  e.preventDefault();
+  chrome.storage.sync.get(["airtableBaseURL"], function (data) {
+    if (!data.airtableBaseURL) {
+      return alert('Please set up the Base URL to access your Airtable')
+    } else {
+      window.open(data.airtableBaseURL, '_blank')
+    }
   })
 }
 
@@ -44,14 +56,12 @@ saveBtn.onclick = function(e) {
   if (!jobTitle.value || !company.value || !jobLocation.value || !url) {
     return alert('Please enter information for all required fields')
   }
-  let airtableTableName;
-  let base;
   chrome.storage.sync.get(["airtableApiKey", "airtableBaseId", "airtableTableName"], function(data) {
     if (!data.airtableApiKey || !data.airtableBaseId || !data.airtableTableName) {
       return alert('Please set up your Airtable API key, base ID, and table name')
     } else {
-      airtableTableName = data.airtableTableName;
-      base = new Airtable({ apiKey: data.airtableApiKey }).base(data.airtableBaseId);
+      const airtableTableName = data.airtableTableName;
+      const base = new Airtable({ apiKey: data.airtableApiKey }).base(data.airtableBaseId);
       const obj = {
         "Company": company.value,
         "Position": jobTitle.value,
