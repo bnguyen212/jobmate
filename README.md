@@ -1,7 +1,7 @@
 # JobMate (version 1.4)
 A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle) to parse job details on common job boards and store the information on Airtable
 
-<img src="assets/JobMateExample.png">
+<img src="assets/JobMateExample1.png">
 
 ## Currently supported job boards:
 - glassdoor.com
@@ -41,10 +41,11 @@ A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpb
 6. Install JobMate chrome extension [here](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle)
 7. Right click on the newly added JobMate icon on chrome toolbar and select **Options**
    - You should see a popup window to fill out your Airtable API Key, Base ID, and Table Name, and Base URL
-   - **JobMate chrome extension will not work properly if the first 3 parameters are missing**. The 4th parameter (Base URL) is for your easy access, the green SPREADSHEET button located in extension popup will not work if this parameter is missing
+      - **JobMate chrome extension will not work properly if the first 3 parameters are missing**
+      - The 4th parameter (Base URL) is for your easy access, the green SPREADSHEET button located in extension popup will not work if this parameter is missing
    - Click SAVE when you are done, this will allow JobMate to store information on Airtable that you can refer to later
 
-   ![JobMate settings](assets/JobMateSettings.png)
+   ![JobMate settings](assets/JobMateSettings1.png)
 
 ## Tech
 - jQuery
