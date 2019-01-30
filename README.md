@@ -19,11 +19,13 @@ A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpb
 
 
 ## Setup
-1. You need to have [Airtable](https://airtable.com) account (free to register)
+1. Go [here](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle) to install JobMate Chrome extension.
 
-2. Go [here](https://airtable.com/account) to generate an **API Key**
+2. You need to have [Airtable](https://airtable.com) account (free to register)
 
-3. Create a workspace and a base that has the following columns: ([example](https://airtable.com/shrN2JjV4nfk1nDR9/tblie1Q7Z9fctLcF0))
+3. Go [here](https://airtable.com/account) to generate an **API Key**
+
+4. Create a workspace and a base that has the following columns: ([example](https://airtable.com/shrN2JjV4nfk1nDR9/tblie1Q7Z9fctLcF0))
    - **Company** (single line text)
    - **Position** (single line text)
    - **Location** (single line text)
@@ -32,14 +34,14 @@ A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpb
    - **Notes** (long text)
    - **Status** (single select, options: Submitted, Working, Rejected, Pending)
 
-4. (Optional) Obtain the direct URL to access the base just created in step 2 from your browser's address bar
+5. (Optional) Obtain the direct URL to access the base just created in step 2 from your browser's address bar
 
-5. Go [here](https://airtable.com/api) to select the base you just created:
+6. Go [here](https://airtable.com/api) to select the base you just created:
    - Obtain the Base ID from the address bar (ht<span>tps://</span>airtable.com/**__BASEID__**/api/docs)
    - Obtain Table Name
 
-6. Install JobMate chrome extension [here](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle)
-7. Right click on the newly added JobMate icon on chrome toolbar and select **Options**
+7. Install JobMate chrome extension [here](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle)
+8. Right click on the newly added JobMate icon on chrome toolbar and select **Options**
    - You should see a popup window to fill out your Airtable API Key, Base ID, and Table Name, and Base URL
       - **JobMate chrome extension will not work properly if the first 3 parameters are missing**
       - The 4th parameter (Base URL) is for your easy access, the green SPREADSHEET button located in extension popup will not work if this parameter is missing
