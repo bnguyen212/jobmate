@@ -1,27 +1,40 @@
-const apiKey = document.getElementById('api-key');
-const baseId = document.getElementById('base-id');
-const tableName = document.getElementById('table-name');
-const baseURL = document.getElementById('base-url');
+const accessTokenInput = document.getElementById('access-token');
+const spreadsheetUrlInput = document.getElementById('spreadsheet-url');
 const saveBtn = document.getElementById('save');
 
-chrome.storage.sync.get(["airtableApiKey", "airtableBaseId", "airtableTableName", "airtableBaseURL"], function(data) {
-  apiKey.value = data.airtableApiKey ? data.airtableApiKey : '';
-  baseId.value = data.airtableBaseId ? data.airtableBaseId : '';
-  tableName.value = data.airtableTableName ? data.airtableTableName : '';
-  baseURL.value = data.airtableBaseURL ? data.airtableBaseURL : '';
-})
-
-saveBtn.onclick = function(element) {
-  const obj = {
-    airtableApiKey: apiKey.value,
-    airtableBaseId: baseId.value,
-    airtableTableName: tableName.value,
-    airtableBaseURL: baseURL.value
-  }
-  chrome.storage.sync.set(obj, function() {
-    $('h4').after('<div id="message">Successfully saved!</div>')
-    setTimeout(function() {
-      $('#message').fadeOut(500);
-    }, 2000)
-  })
+function showSavedMessage() {
+  document.getElementById('message')?.remove();
+  const msg = document.createElement('div');
+  msg.id = 'message';
+  msg.textContent = 'Successfully saved!';
+  document.querySelector('h4').insertAdjacentElement('afterend', msg);
+  msg.style.opacity = '1';
+  msg.style.transition = 'opacity 0.5s ease';
+  setTimeout(() => {
+    msg.style.opacity = '0';
+    setTimeout(() => msg.remove(), 500);
+  }, 2000);
 }
+
+saveBtn.addEventListener('click', () => {
+  const parsed = parseAirtableSpreadsheetUrl(spreadsheetUrlInput.value);
+  if (!parsed.ok) {
+    alert(parsed.error);
+    return;
+  }
+  chrome.storage.sync.set(
+    {
+      airtableAccessToken: accessTokenInput.value,
+      airtableSpreadsheetURL: spreadsheetUrlInput.value.trim(),
+    },
+    showSavedMessage
+  );
+});
+
+chrome.storage.sync.get(
+  ['airtableAccessToken', 'airtableSpreadsheetURL'],
+  (data) => {
+    accessTokenInput.value = data.airtableAccessToken || '';
+    spreadsheetUrlInput.value = (data.airtableSpreadsheetURL || '').trim();
+  }
+);

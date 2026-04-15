@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener(
       } else if (message.url.includes('indeed.com')) {
 
         jobTitle = $('#vjs-jobtitle').text();
-        company = $('#vjs-cn').text() || $('#vjs-cn').children().text() ;
+        company = $('#vjs-cn').text() || $('#vjs-cn').children().text();
         jobLocation = $('#vjs-loc').text().replace(/-/, '');
 
       } else if (message.url.includes('monster.com')) {
