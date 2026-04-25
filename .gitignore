@@ -1,1 +1,4 @@
 .DS_Store
+
+# Local HTML/MHTML fixtures for parser development (not needed in repo)
+chrome-extension/samples/

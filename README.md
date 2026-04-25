@@ -2,22 +2,26 @@
 
 A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpbknogddkkiabopofhkcimcle) to parse job details on common job boards and store the information on Airtable
 
-<img src="assets/JobMateExample1.png">
+<img src="chrome-extension/assets/JobMateExample1.png">
 
-## Currently supported job boards:
+## Currently supported job boards and ATS platforms:
 
+- ashbyhq.com (added in v1.5)
+- gem.com (added in v1.5)
 - glassdoor.com
-- lever.co
 - greenhouse.io
-- angel.co
+- icims.com (added in v1.5)
 - indeed.com
-- linkedin.com (updated in v1.4)
-- stackoverflow.com (updated in v1.4)
-- monster.com (updated in v1.4)
-- ziprecruiter.com (updated in v1.4)
-- hire.withgoogle.com (added in v1.4)
 - jobvite.com (added in v1.4)
+- lever.co
+- linkedin.com (updated in v1.4)
+- monster.com (updated in v1.4)
+- myworkdayjobs.com (added in v1.5)
+- taleo.net (added in v1.5)
+- welcometothejungle.com (formerly otta.com) (added in v1.5)
+- wellfound.com
 - workable.com (added in v1.4)
+- ziprecruiter.com (updated in v1.4)
 
 ## Setup
 
@@ -46,7 +50,7 @@ A [Chrome extension](https://chrome.google.com/webstore/detail/jobmate/dhehfnkpb
    - Enter your **Access Token** and **Spreadsheet URL** (from step #4 and #5).
    - Click **Save** when you are done.
 
-   ![JobMate settings](assets/JobMateSettings1.png)
+   ![JobMate settings](chrome-extension/assets/JobMateSettings1.png)
 
 ## Tech
 
