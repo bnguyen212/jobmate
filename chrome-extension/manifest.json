@@ -16,7 +16,28 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*/*"],
-			"js": ["assets/jquery-3.3.1.min.js", "contentScript.js"]
+			"js": [
+				"assets/jquery-3.3.1.min.js",
+				"parsers/registry.js",
+				"parsers/utils.js",
+				"parsers/linkedin.js",
+				"parsers/greenhouse.js",
+				"parsers/lever.js",
+				"parsers/wellfound.js",
+				"parsers/glassdoor.js",
+				"parsers/gem.js",
+				"parsers/workday.js",
+				"parsers/welcometothejungle.js",
+				"parsers/indeed.js",
+				"parsers/monster.js",
+				"parsers/ziprecruiter.js",
+				"parsers/jobvite.js",
+				"parsers/workable.js",
+				"parsers/ashbyhq.js",
+				"parsers/icims.js",
+				"parsers/taleo.js",
+				"contentScript.js"
+			]
 		}
 	],
 	"options_ui": {

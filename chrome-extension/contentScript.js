@@ -1,114 +1,101 @@
-chrome.runtime.onMessage.addListener(
+/**
+ * Parses job title, company, location, and URL from the active tab DOM when
+ * the popup sends { action: 'parse', url }.
+ */
+chrome.runtime.onMessage.addListener(function (message, _sender, callback) {
+	if (message.action !== "parse") return;
 
-  function(message, sender, callback) {
-    if (message.action === 'parse') {
-      const response = {};
-      let jobTitle, company, jobLocation, url;
-      url = message.url;
+	const utils = window.JobMateUtils;
+	const pageUrl = message.url;
+	const liveUrl = location.href || "";
+	const effectivePageUrl = liveUrl || pageUrl || "";
+	const emptyParseResult = () => ({
+		jobTitle: "",
+		company: "",
+		jobLocation: "",
+		url: effectivePageUrl || "",
+	});
+	if (!utils) {
+		callback(emptyParseResult());
+		return;
+	}
 
-      if (message.url.includes('linkedin.com')) {
+	const DEBUG_EMBEDDED_DETECTION = true;
+	const supportedDomains = window.JobMateParsers?.getSupportedDomains?.() ?? [];
 
-        jobTitle = $("h1.jobs-top-card__job-title").text();
-        company = $("a.jobs-top-card__company-url")
-          .text()
-          .replace(/\n/g, '');
-        jobLocation = $('span.jobs-top-card__bullet').first().text().replace(/\n/g, '');
+	const runRegisteredParser = ({ domain, embedded = false, evidenceUrl = "" }) => {
+		if (!window.JobMateParsers || !window.JobMateParsers.findByDomain) return null;
+		const siteParser = window.JobMateParsers.findByDomain(domain);
+		if (!siteParser) return null;
 
-      } else if (message.url.includes('greenhouse.io')) {
+		const context = { $, pageUrl: effectivePageUrl };
 
-        jobTitle = $('.app-title').text();
-        company = $('.company-name').text().replace(/\n/g, '').trim().split(' ', 2)[1];
-        jobLocation = $('.location').text().replace(/\n/g, '');
+		if (embedded && siteParser.parseEmbedded) return siteParser.parseEmbedded(context, evidenceUrl);
+		if (!embedded && siteParser.parseHost) return siteParser.parseHost(context);
+		return null;
+	};
 
-      } else if (message.url.includes('lever.co')) {
+	const debugEmbeddedDetection = (embeddedDetection, evidenceUrl) => {
+		if (!DEBUG_EMBEDDED_DETECTION) return;
+		console.log("[JobMate] Embedded ATS detection", {
+			pageUrl: utils.cleanText(pageUrl),
+			platform: embeddedDetection?.platform || "",
+			evidenceUrl: evidenceUrl || "",
+			evidenceCount: (embeddedDetection?.evidenceUrls || []).length,
+		});
+	};
 
-        jobTitle = $('h2').text();
-        company = $('title').text().split('-', 2)[0];
-        jobLocation = $('.sort-by-time').text();
+	const parseJobFromDom = async () => {
+		let jobTitle = "";
+		let company = "";
+		let jobLocation = "";
+		let jobUrl = effectivePageUrl;
 
-      } else if (message.url.includes('angel.co')) {
+		const mergeParserResult = parserOutput => {
+			if (!parserOutput) return;
+			jobTitle = utils.firstNonEmpty(jobTitle, parserOutput.jobTitle);
+			company = utils.firstNonEmpty(company, parserOutput.company);
+			jobLocation = utils.firstNonEmpty(jobLocation, parserOutput.jobLocation);
+			jobUrl = utils.firstNonEmpty(parserOutput.url, jobUrl);
+		};
 
-        jobTitle = $('h1').text().split('at')[0];
-        company = $('h1').text().split('at')[1];
-        jobLocation = $('.high-concept').text().split('·')[0];
+		let matchedDomain = null;
+		for (const domain of supportedDomains) {
+			if (effectivePageUrl.includes(domain)) {
+				matchedDomain = domain;
+				break;
+			}
+		}
 
-      } else if (message.url.includes('glassdoor.com')) {
+		if (matchedDomain) {
+			const result = runRegisteredParser({ domain: matchedDomain });
+			mergeParserResult(await Promise.resolve(result));
+		} else {
+			const embeddedDetection = utils.detectEmbeddedPlatform($, effectivePageUrl, utils.cleanText);
+			const evidenceUrlList = embeddedDetection.evidenceUrls || [];
+			const evidenceUrlPattern =
+				utils.embeddedEvidenceUrlPatternByPlatform[embeddedDetection.platform];
+			let chosenEvidenceUrl = "";
+			if (evidenceUrlPattern) {
+				chosenEvidenceUrl = utils.firstMatchingEvidenceUrl(evidenceUrlList, evidenceUrlPattern);
+				const embeddedResult = runRegisteredParser({
+					domain: embeddedDetection.platform,
+					embedded: true,
+					evidenceUrl: chosenEvidenceUrl,
+				});
+				mergeParserResult(await Promise.resolve(embeddedResult));
+			}
+			debugEmbeddedDetection(embeddedDetection, chosenEvidenceUrl);
+		}
+		return { jobTitle, company, jobLocation, url: jobUrl };
+	};
 
-        url = $('article.jobDetails').attr('data-id');
-        jobTitle = $('h1.jobTitle').text();
-        jobLocation = $('.compInfo').children('span').eq(1).text().replace(/[–]/, '');
-        company = $('.employerName').text();
-
-      } else if (message.url.includes('stackoverflow.com')) {
-
-        jobTitle = $("a.fc-black-900").text();
-        company = $("a.fc-black-800").text();
-        jobLocation = $("span.fc-black-500").first().text().replace(/[\n|]/g, '');
-
-      } else if (message.url.includes('indeed.com')) {
-
-        jobTitle = $('#vjs-jobtitle').text();
-        company = $('#vjs-cn').text() || $('#vjs-cn').children().text();
-        jobLocation = $('#vjs-loc').text().replace(/-/, '');
-
-      } else if (message.url.includes('monster.com')) {
-
-        const header = $("h1.title").text();
-        if (header.includes(' at ')) {
-          jobTitle = header.split('at')[0];
-          company = header.split('at')[1];
-        } else if (header.includes(' from ')) {
-          jobTitle = header.split('from')[0];
-          company = header.split('from')[1];
-        }
-        jobLocation = $('h2.subtitle').text();
-
-      } else if (message.url.includes('ziprecruiter.com')) {
-
-        jobTitle = $('h1.job_title').text();
-        company = $('a.job_details_link').text();
-        jobLocation = $("a.location_text span span").text();
-
-      } else if (message.url.includes('wayup.com')) {
-
-        jobTitle = $('.ListingApplication__HeaderPositionTitle-jHqaqC').text();
-        company = $('.ListingApplication__HeaderCompanyName-lkfLno').text();
-        jobLocation = $('.ListingApplication__HeaderListingLocation-frbGKz').text();
-
-      } else if (message.url.includes('hire.withgoogle.com')) {
-
-        jobTitle = $("h1.bb-jobs-posting__job-title").text();
-        company = $("img.ptor-job-posting-company-logo").attr("alt");
-        jobLocation = $("li.ptor-job-view-location").text();
-
-      } else if (message.url.includes('jobvite.com')) {
-
-        jobTitle = $("h2.jv-header").text();
-        company = $(".jv-logo a img").attr("alt");
-        jobLocation = $("p.jv-job-detail-meta")
-          .text()
-          .replace(/[\n]/g, "");
-
-      } else if (message.url.includes('workable.com')) {
-
-        jobTitle = $(".section--header h1").text();
-        company = $("title").text().split('-')[0];
-        jobLocation = $(".section--header h1")
-          .next()
-          .text();
-
-      } else {
-        jobTitle = '';
-        company = '';
-        jobLocation = '';
-      }
-
-      response.jobTitle = jobTitle ? jobTitle.trim() : '';
-      response.company = company ? company.trim() : '';
-      response.jobLocation = jobLocation ? jobLocation.trim() : '';
-      response.url = url;
-
-      callback(response);
-    }
-  }
-)
+	parseJobFromDom()
+		.then(result => {
+			callback(result || emptyParseResult());
+		})
+		.catch(() => {
+			callback(emptyParseResult());
+		});
+	return true;
+});
