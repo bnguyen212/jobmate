@@ -1,65 +1,65 @@
 /* Field width for the embedded options dialog (window min-width follows this + padding) */
 :root {
-  --options-content-width: 440px;
-  /* Fixed width: fits “Spreadsheet URL”; both labels fill this column */
-  --options-label-col: 13.75rem;
+	--options-content-width: 440px;
+	/* Fixed width tuned for Bootstrap 4 sizing */
+	--options-label-col: 10rem;
 }
 
 html {
-  min-width: calc(var(--options-content-width) + 3rem);
+	min-width: calc(var(--options-content-width) + 3rem);
 }
 
 body {
-  margin: 0;
-  padding: 0.75rem 1.25rem 1.25rem;
-  min-width: calc(var(--options-content-width) + 3rem);
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0.75rem 1.25rem 1.25rem;
+	min-width: calc(var(--options-content-width) + 3rem);
+	box-sizing: border-box;
 }
 
 .options-row {
-  display: grid;
-  grid-template-columns: var(--options-label-col) minmax(0, 1fr);
-  align-items: stretch;
-  margin: 20px auto;
-  max-width: var(--options-content-width);
+	display: grid;
+	grid-template-columns: var(--options-label-col) minmax(0, 1fr);
+	align-items: stretch;
+	margin: 20px auto;
+	max-width: var(--options-content-width);
 }
 
 .options-label {
-  margin: 0;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555;
-  text-align: right;
-  white-space: nowrap;
-  padding: 6px 12px;
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-right-width: 0;
-  border-radius: 4px 0 0 4px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  box-sizing: border-box;
-  min-height: 34px;
-  width: 100%;
-  min-width: 0;
+	margin: 0;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	text-align: right;
+	white-space: nowrap;
+	padding: 6px 12px;
+	background-color: #eee;
+	border: 1px solid #ccc;
+	border-right-width: 0;
+	border-radius: 4px 0 0 4px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	box-sizing: border-box;
+	min-height: 34px;
+	width: 100%;
+	min-width: 0;
 }
 
 .options-row .form-control {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  width: 100%;
-  min-width: 0;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	width: 100%;
+	min-width: 0;
 }
 
 .save-btn {
-  display: flex;
-  justify-content: center;
-  margin-top: 8px;
+	display: flex;
+	justify-content: center;
+	margin-top: 8px;
 }
 
 #message {
-  color: green;
-  text-align: center;
+	color: green;
+	text-align: center;
 }
